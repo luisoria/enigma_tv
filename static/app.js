@@ -272,8 +272,16 @@ async function checkVisible() {
   setStatus(`${alive} en línea de ${slice.length} comprobados`, alive ? "ok" : "err");
 }
 
-/* ---------- Reproducción ---------- */
 function proxied(rawUrl, ua, referer) {
+  try {
+    const hostname = new URL(rawUrl).hostname;
+    if (hostname.endsWith('.dps.live') || 
+        hostname.endsWith('.dpsgo.com') || 
+        hostname.endsWith('.rudo.video') || 
+        hostname.endsWith('.mdstrm.com')) {
+      return rawUrl;
+    }
+  } catch(e) {}
   let u = "/stream?url=" + encodeURIComponent(rawUrl);
   const finalUa = ua || state.ua;
   if (finalUa) u += "&ua=" + encodeURIComponent(finalUa);

@@ -407,8 +407,19 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.playerSidebar.classList.add('visible');
         
         // Set video source
-        const proxyUrl = `/stream?url=${encodeURIComponent(url)}`;
-        elements.videoPlayer.src = proxyUrl;
+        let playUrl = url;
+        try {
+            const hostname = new URL(url).hostname;
+            if (!(hostname.endsWith('.dps.live') || 
+                  hostname.endsWith('.dpsgo.com') || 
+                  hostname.endsWith('.rudo.video') || 
+                  hostname.endsWith('.mdstrm.com'))) {
+                playUrl = `/stream?url=${encodeURIComponent(url)}`;
+            }
+        } catch(e) {
+            playUrl = `/stream?url=${encodeURIComponent(url)}`;
+        }
+        elements.videoPlayer.src = playUrl;
         elements.videoPlayer.load();
         
         // Play

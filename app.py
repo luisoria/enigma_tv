@@ -444,6 +444,14 @@ def stream():
     except requests.RequestException as e:
         return f"Error upstream: {e}", 502
 
+    if upstream.status_code >= 400:
+        err_content = upstream.content
+        return Response(
+            err_content,
+            status=upstream.status_code,
+            headers={"Content-Type": upstream.headers.get("Content-Type", "text/plain")}
+        )
+
     ctype = upstream.headers.get("Content-Type", "")
     # leemos un pedazo para olfatear si es playlist
     first = next(upstream.iter_content(chunk_size=4096), b"")
@@ -485,6 +493,15 @@ def api_check():
     url = (data.get("url") or "").strip()
     if not url:
         return jsonify(ok=False, reason="sin-url")
+
+    # Bypass check for direct-play CDNs (which might block server IP but work for clients)
+    try:
+        hostname = urlparse(url).netloc
+        if any(hostname.endswith(domain) for domain in ('.dps.live', '.dpsgo.com', '.rudo.video', '.mdstrm.com')):
+            return jsonify(ok=True, reason="direct-play-bypass")
+    except Exception:
+        pass
+
     ua = (data.get("ua") or "").strip() or DEFAULT_UA
     referer = (data.get("referer") or "").strip()
     headers = {"User-Agent": ua}

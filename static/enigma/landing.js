@@ -136,9 +136,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide placeholder
         placeholder.classList.add('hidden');
 
-        // Play through proxy
-        const proxyUrl = `/stream?url=${encodeURIComponent(url)}`;
-        player.src = proxyUrl;
+        // Play through proxy or directly
+        let playUrl = url;
+        try {
+            const hostname = new URL(url).hostname;
+            if (!(hostname.endsWith('.dps.live') || 
+                  hostname.endsWith('.dpsgo.com') || 
+                  hostname.endsWith('.rudo.video') || 
+                  hostname.endsWith('.mdstrm.com'))) {
+                playUrl = `/stream?url=${encodeURIComponent(url)}`;
+            }
+        } catch(e) {
+            playUrl = `/stream?url=${encodeURIComponent(url)}`;
+        }
+        player.src = playUrl;
         player.load();
         player.play().catch(err => console.log('Autoplay blocked:', err));
     }
