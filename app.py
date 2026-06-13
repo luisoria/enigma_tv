@@ -37,7 +37,8 @@ app.secret_key = os.environ.get("SECRET_KEY", "enigmatv-secret-key-change-in-pro
 # ---------------------------------------------------------------------------
 # Database
 # ---------------------------------------------------------------------------
-DB_PATH = os.path.join(os.path.dirname(__file__), "users.db")
+DB_DIR = os.environ.get("DB_DIR", os.path.dirname(__file__))
+DB_PATH = os.path.join(DB_DIR, "users.db")
 
 
 def get_db():
@@ -47,6 +48,8 @@ def get_db():
 
 
 def init_db():
+    if os.path.dirname(DB_PATH):
+        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = get_db()
     conn.execute("""
         CREATE TABLE IF NOT EXISTS users (
@@ -554,4 +557,5 @@ def health():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8088, threaded=True, debug=False)
+    port = int(os.environ.get("PORT", 8088))
+    app.run(host="0.0.0.0", port=port, threaded=True, debug=False)

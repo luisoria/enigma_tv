@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 8088
+EXPOSE 80
 
-CMD ["gunicorn", "-b", "0.0.0.0:8088", "-w", "1", "--threads", "4", "--timeout", "120", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:80", "-w", "1", "--threads", "4", "--timeout", "120", "app:app"]

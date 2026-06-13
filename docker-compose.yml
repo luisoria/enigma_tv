@@ -6,6 +6,6 @@ services:
     container_name: iptv-portal
     restart: unless-stopped
     ports:
-      - '8088:8088'
+      - '8088:80'
     environment:
       - FLASK_ENV=production
