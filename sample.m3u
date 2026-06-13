@@ -1,0 +1,8 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="t1" tvg-logo="https://example.com/a.png" group-title="Noticias",Canal Uno
+http://localhost/uno/index.m3u8
+#EXTINF:-1 tvg-logo="https://example.com/b.png" group-title="Cine",Cine Max
+#EXTVLCOPT:http-user-agent=MiAgente/1.0
+http://localhost/cine/stream.m3u8
+#EXTINF:-1 group-title="Noticias",Canal Dos
+http://localhost/dos.ts

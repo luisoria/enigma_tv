@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Enigma TV</title>
+    <link rel="icon" type="image/svg+xml" href="/static/enigma/logo.svg">
+    <link rel="stylesheet" href="/static/enigma/landing.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <span class="brand-text">Enigma TV</span>
+                    <span class="brand-slogan">Tu Canal Streaming de Venezuela Para El Mundo!!</span>
+                </div>
+                <img src="/static/enigma/logo.svg" alt="TV" class="logo-icon">
+                <button class="sidebar-close" id="sidebar-close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="search" placeholder="Buscar canal..." autocomplete="off">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+
+            <div class="group-filter">
+                <select id="group-select">
+                    <option value="">Todos los canales</option>
+                </select>
+            </div>
+
+            <div class="channel-count">
+                <span id="channel-count">0</span> canales disponibles
+            </div>
+
+            <ul class="channel-list" id="channel-list">
+                <!-- Channels loaded dynamically -->
+            </ul>
+        </aside>
+
+        <!-- Main Player Area -->
+        <main class="main">
+            <!-- Now Playing Bar -->
+            <div class="now-playing" id="now-playing">
+                <div class="now-playing-info">
+                    <button class="menu-toggle" id="menu-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <span class="live-badge">EN VIVO</span>
+                    <span class="now-playing-name" id="now-playing-name">Selecciona un canal</span>
+                </div>
+            </div>
+
+            <!-- Video Player -->
+            <div class="player-container">
+                <video id="player" controls playsinline>
+                    Tu navegador no soporta video.
+                </video>
+                
+                <!-- Placeholder when no channel selected -->
+                <div class="player-placeholder" id="player-placeholder">
+                    <img src="/static/enigma/logo.svg" alt="Enigma TV" class="placeholder-logo">
+                    <p>Selecciona un canal para comenzar</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="/static/enigma/landing.js"></script>
+</body>
+</html>

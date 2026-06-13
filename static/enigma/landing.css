@@ -1,0 +1,948 @@
+/* Enigma TV - Landing Page Styles */
+
+:root {
+    --bg-dark: #0a0a0f;
+    --bg-sidebar: #0d0d14;
+    --bg-card: #12121a;
+    --bg-hover: #1a1a2e;
+    --bg-active: #252540;
+    --primary: #6366f1;
+    --primary-hover: #818cf8;
+    --accent: #c084fc;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #1e293b;
+    --success: #22c55e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 320px;
+    background: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    padding: 20px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+}
+
+.brand {
+    flex: 1;
+}
+
+.brand-text {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6366f1, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    display: block;
+}
+
+.brand-slogan {
+    font-size: 14px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    display: block;
+    margin-top: 6px;
+}
+
+.logo-icon {
+    height: 70px;
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.4));
+}
+
+.search-box {
+    position: relative;
+    padding: 16px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+}
+
+.search-box svg {
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+}
+
+.group-filter {
+    padding: 0 16px 12px;
+}
+
+.group-filter select {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+}
+
+.group-filter select:focus {
+    border-color: var(--primary);
+}
+
+.channel-count {
+    padding: 0 16px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.channel-list {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    padding: 8px;
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-bottom: 4px;
+}
+
+.channel-item:hover {
+    background: var(--bg-hover);
+}
+
+.channel-item.active {
+    background: var(--bg-active);
+    border-left: 3px solid var(--primary);
+}
+
+.channel-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.channel-icon svg {
+    width: 18px;
+    height: 18px;
+    color: white;
+}
+
+.channel-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.channel-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.channel-group {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.channel-status {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+
+.channel-item.active .channel-status {
+    opacity: 1;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Main Area */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Now Playing Bar */
+.now-playing {
+    background: var(--bg-sidebar);
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.now-playing-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.live-badge {
+    background: #ef4444;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    display: none;
+}
+
+.live-badge.visible {
+    display: inline-block;
+}
+
+.now-playing-name {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.now-playing-name.active {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Player Container */
+.player-container {
+    flex: 1;
+    background: #000;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#player {
+    width: 100%;
+    flex: 1;
+    object-fit: contain;
+    background: #000;
+}
+
+/* Force video controls to be visible */
+video::-webkit-media-controls-panel {
+    display: flex !important;
+    opacity: 1 !important;
+}
+
+video::-webkit-media-controls {
+    display: flex !important;
+    opacity: 1 !important;
+}
+
+.player-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+    gap: 20px;
+}
+
+.player-placeholder.hidden {
+    display: none;
+}
+
+.placeholder-logo {
+    height: 120px;
+    opacity: 0.3;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.player-placeholder p {
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+/* Scrollbar */
+.channel-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.channel-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.channel-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.channel-list::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 8px;
+}
+
+.menu-toggle svg {
+    width: 22px;
+    height: 22px;
+}
+
+.sidebar-close {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    margin-left: auto;
+}
+
+.sidebar-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99;
+}
+
+/* ============================================
+   RESPONSIVE - TV (Smart TV / Pantallas grandes)
+   ============================================ */
+@media (min-width: 1920px) {
+    .sidebar {
+        width: 420px;
+    }
+
+    .sidebar-header {
+        padding: 28px 24px;
+    }
+
+    .brand-text {
+        font-size: 36px;
+    }
+
+    .brand-slogan {
+        font-size: 18px;
+    }
+
+    .logo-icon {
+        height: 90px;
+    }
+
+    .search-box input {
+        padding: 16px 20px 16px 50px;
+        font-size: 18px;
+    }
+
+    .search-box svg {
+        width: 24px;
+        left: 36px;
+    }
+
+    .group-filter select {
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+
+    .channel-count {
+        font-size: 14px;
+        padding: 0 16px 16px;
+    }
+
+    .channel-item {
+        padding: 16px 18px;
+        gap: 16px;
+    }
+
+    .channel-icon {
+        width: 52px;
+        height: 52px;
+    }
+
+    .channel-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .channel-name {
+        font-size: 18px;
+    }
+
+    .channel-group {
+        font-size: 13px;
+    }
+
+    .channel-status {
+        width: 10px;
+        height: 10px;
+    }
+
+    .now-playing {
+        padding: 16px 32px;
+    }
+
+    .live-badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .now-playing-name {
+        font-size: 18px;
+    }
+
+    .placeholder-logo {
+        height: 160px;
+    }
+
+    .player-placeholder p {
+        font-size: 22px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - NOTEBOOK (Laptops / 1024px - 1440px)
+   ============================================ */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .sidebar {
+        width: 300px;
+    }
+
+    .sidebar-header {
+        padding: 16px 14px;
+    }
+
+    .brand-text {
+        font-size: 24px;
+    }
+
+    .brand-slogan {
+        font-size: 12px;
+    }
+
+    .logo-icon {
+        height: 60px;
+    }
+
+    .search-box {
+        padding: 12px;
+    }
+
+    .search-box input {
+        padding: 10px 14px 10px 40px;
+        font-size: 13px;
+    }
+
+    .channel-item {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .channel-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .channel-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .channel-name {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - TABLET (768px - 1024px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .sidebar {
+        width: 280px;
+    }
+
+    .sidebar-header {
+        padding: 14px 12px;
+    }
+
+    .brand-text {
+        font-size: 22px;
+    }
+
+    .brand-slogan {
+        font-size: 11px;
+    }
+
+    .logo-icon {
+        height: 55px;
+    }
+
+    .search-box {
+        padding: 10px;
+    }
+
+    .search-box input {
+        padding: 10px 12px 10px 38px;
+        font-size: 13px;
+    }
+
+    .search-box svg {
+        left: 24px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .group-filter {
+        padding: 0 10px 10px;
+    }
+
+    .group-filter select {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .channel-count {
+        padding: 0 10px 10px;
+        font-size: 11px;
+    }
+
+    .channel-item {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .channel-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .channel-name {
+        font-size: 13px;
+    }
+
+    .channel-group {
+        font-size: 10px;
+    }
+
+    .now-playing {
+        padding: 10px 16px;
+    }
+
+    .now-playing-name {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - SMARTPHONE (Vertical)
+   ============================================ */
+@media (max-width: 767px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        border-right: 1px solid var(--border);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 100;
+    }
+
+    .sidebar.visible {
+        transform: translateX(0);
+    }
+
+    .sidebar-header {
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .sidebar-close {
+        display: block;
+    }
+
+    .brand-text {
+        font-size: 20px;
+    }
+
+    .brand-slogan {
+        font-size: 10px;
+    }
+
+    .logo-icon {
+        height: 50px;
+    }
+
+    .search-box {
+        padding: 8px 12px;
+    }
+
+    .search-box input {
+        padding: 10px 12px 10px 38px;
+        font-size: 14px;
+    }
+
+    .search-box svg {
+        left: 22px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .group-filter {
+        padding: 0 12px 8px;
+    }
+
+    .group-filter select {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    .channel-count {
+        padding: 0 12px 8px;
+        font-size: 11px;
+    }
+
+    .channel-list {
+        padding: 4px 8px;
+    }
+
+    .channel-item {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .channel-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .channel-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .channel-name {
+        font-size: 13px;
+    }
+
+    .channel-group {
+        font-size: 10px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .main {
+        height: 100vh;
+    }
+
+    .now-playing {
+        padding: 8px 12px;
+    }
+
+    .live-badge {
+        font-size: 9px;
+        padding: 3px 6px;
+    }
+
+    .now-playing-name {
+        font-size: 12px;
+    }
+
+    .player-container {
+        height: 100%;
+    }
+
+    .placeholder-logo {
+        height: 80px;
+    }
+
+    .player-placeholder p {
+        font-size: 14px;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - SMARTPHONE (Horizontal / Landscape)
+   ============================================ */
+@media (max-width: 767px) and (orientation: landscape) {
+    .app {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 200px;
+        height: 100vh;
+        border-right: 1px solid var(--border);
+        border-bottom: none;
+    }
+
+    .sidebar-header {
+        padding: 8px;
+    }
+
+    .logo {
+        height: 32px;
+    }
+
+    .search-box {
+        padding: 6px 8px;
+    }
+
+    .search-box input {
+        padding: 8px 10px 8px 34px;
+        font-size: 12px;
+    }
+
+    .search-box svg {
+        left: 18px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .group-filter {
+        padding: 0 8px 6px;
+    }
+
+    .group-filter select {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .channel-count {
+        padding: 0 8px 6px;
+        font-size: 10px;
+    }
+
+    .channel-list {
+        padding: 4px;
+    }
+
+    .channel-item {
+        padding: 6px 8px;
+        gap: 8px;
+    }
+
+    .channel-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .channel-icon svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .channel-name {
+        font-size: 11px;
+    }
+
+    .channel-group {
+        font-size: 9px;
+    }
+
+    .main {
+        height: 100vh;
+    }
+
+    .now-playing {
+        padding: 6px 12px;
+    }
+
+    .now-playing-name {
+        font-size: 11px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - SMALL PHONE (320px - 375px)
+   ============================================ */
+@media (max-width: 375px) {
+    .sidebar-header {
+        padding: 8px 10px;
+    }
+
+    .brand-text {
+        font-size: 18px;
+    }
+
+    .brand-slogan {
+        font-size: 9px;
+    }
+
+    .logo-icon {
+        height: 45px;
+    }
+
+    .search-box {
+        padding: 6px 8px;
+    }
+
+    .search-box input {
+        padding: 8px 10px 8px 32px;
+        font-size: 13px;
+    }
+
+    .search-box svg {
+        left: 16px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .group-filter {
+        padding: 0 8px 6px;
+    }
+
+    .group-filter select {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .channel-count {
+        padding: 0 8px 6px;
+        font-size: 10px;
+    }
+
+    .channel-item {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .channel-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .channel-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .channel-name {
+        font-size: 12px;
+    }
+
+    .channel-group {
+        font-size: 9px;
+    }
+
+    .now-playing {
+        padding: 6px 10px;
+    }
+
+    .live-badge {
+        font-size: 8px;
+        padding: 2px 5px;
+    }
+
+    .now-playing-name {
+        font-size: 11px;
+    }
+
+    .placeholder-logo {
+        height: 60px;
+    }
+
+    .player-placeholder p {
+        font-size: 12px;
+    }
+}

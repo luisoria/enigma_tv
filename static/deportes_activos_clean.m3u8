@@ -1,0 +1,26 @@
+#EXTM3U
+#EXTINF:-1 group-title="Deportes",Inter TV
+https://open.http.mp.streamamg.com/p/3001560/sp/300156000/playManifest/entryId/0_xmkk2kjr/flavorIds/0_zlbr85f8,0_zlbr85f8,0_noewhew2/format/applehttp/protocol/https/a.m3u8
+#EXTINF:-1 group-title="Deportes",NBC Sports
+https://xumo-xumoent-vc-122-sjv70.fast.nbcuni.com/live/master.m3u8
+#EXTINF:-1 group-title="Deportes",Trace Sports Stars
+https://trace-sportstars-samsungnz.amagi.tv/playlist.m3u8
+#EXTINF:-1 group-title="Deportes",Unbeaten
+https://unbeaten-tcl.amagi.tv/playlist.m3u8
+#EXTINF:-1 group-title="Deportes",Red Bull TV
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
+#EXTINF:-1 group-title="Deportes",TVS Boxing
+https://bozztv.com/gusa/gusa-tvsboxing/index.m3u8
+#EXTINF:-1 group-title="Deportes",TVS Classic Sports
+https://bozztv.com/gusa/gusa-tvs/index.m3u8
+#EXTINF:-1 group-title="Deportes",TVS Sports
+https://bozztv.com/gusa/gusa-tvssports/index.m3u8
+#EXTINF:-1 group-title="Deportes",TVS Turbo
+https://bozztv.com/gusa/gusa-tvsturbo/index.m3u8
+#EXTINF:-1 group-title="Deportes",TVS Bowling
+https://bozztv.com/gusa/gusa-tvsbowling/index.m3u8
+#EXTINF:-1 group-title="Deportes",TVS Women Sports
+https://bozztv.com/gusa/gusa-tvswsn/index.m3u8
+#EXTINF:-1 group-title="Deportes",Pac 12 Insider
+https://pac12-firetv.amagi.tv/playlist.m3u8
+

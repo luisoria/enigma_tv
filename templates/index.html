@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Señal · Portal IPTV local</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="tally" id="tally"></span>
+      <span class="wordmark">SEÑAL</span>
+      <span class="subwordmark">portal&nbsp;local</span>
+    </div>
+    <div class="onair" id="onair">
+      <span class="onair-label">EN REPRODUCCIÓN</span>
+      <span class="onair-name" id="onairName">—</span>
+    </div>
+    <div class="meta" id="metaCount">0 canales</div>
+  </header>
+
+  <main class="layout">
+    <!-- Panel de carga / lista -->
+    <aside class="sidebar">
+      <div class="loader">
+        <div class="seg-tabs">
+          <button class="seg active" data-tab="url">URL</button>
+          <button class="seg" data-tab="file">Archivo</button>
+          <button class="seg" data-tab="catalog">Catálogo</button>
+        </div>
+
+        <div class="tab-panel" data-panel="url">
+          <input id="urlInput" type="text" placeholder="https://.../lista.m3u" autocomplete="off">
+          <input id="uaInput" type="text" placeholder="User-Agent (opcional)" autocomplete="off">
+          <button id="loadUrl" class="btn-primary">Cargar lista</button>
+        </div>
+
+        <div class="tab-panel hidden" data-panel="file">
+          <label class="filedrop" id="fileLabel">
+            <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
+            <span id="fileText">Arrastra o elige un .m3u</span>
+          </label>
+          <button id="loadFile" class="btn-primary">Cargar archivo</button>
+        </div>
+
+        <div class="tab-panel hidden" data-panel="catalog">
+          <select id="catalogSel">
+            <option value="">— Elige una fuente pública —</option>
+            <option value="https://iptv-org.github.io/iptv/index.m3u">Todos los canales (global)</option>
+            <optgroup label="Categorías">
+              <option value="https://iptv-org.github.io/iptv/categories/sports.m3u">Deportes</option>
+              <option value="https://iptv-org.github.io/iptv/categories/news.m3u">Noticias</option>
+              <option value="https://iptv-org.github.io/iptv/categories/movies.m3u">Películas</option>
+              <option value="https://iptv-org.github.io/iptv/categories/music.m3u">Música</option>
+              <option value="https://iptv-org.github.io/iptv/categories/documentary.m3u">Documentales</option>
+              <option value="https://iptv-org.github.io/iptv/categories/entertainment.m3u">Entretenimiento</option>
+              <option value="https://iptv-org.github.io/iptv/categories/kids.m3u">Infantil</option>
+              <option value="https://iptv-org.github.io/iptv/categories/science.m3u">Ciencia</option>
+            </optgroup>
+            <optgroup label="Países">
+              <option value="https://iptv-org.github.io/iptv/countries/cl.m3u">Chile</option>
+              <option value="https://iptv-org.github.io/iptv/countries/ve.m3u">Venezuela</option>
+              <option value="https://iptv-org.github.io/iptv/countries/ar.m3u">Argentina</option>
+              <option value="https://iptv-org.github.io/iptv/countries/mx.m3u">México</option>
+              <option value="https://iptv-org.github.io/iptv/countries/co.m3u">Colombia</option>
+              <option value="https://iptv-org.github.io/iptv/countries/pe.m3u">Perú</option>
+              <option value="https://iptv-org.github.io/iptv/countries/es.m3u">España</option>
+              <option value="https://iptv-org.github.io/iptv/countries/us.m3u">Estados Unidos</option>
+            </optgroup>
+          </select>
+          <button id="loadCatalog" class="btn-primary">Cargar catálogo</button>
+          <p class="hint">Listas públicas del proyecto open source <b>iptv-org</b>. Solo streams de acceso público.</p>
+        </div>
+
+        <label class="toggle">
+          <input type="checkbox" id="autoValidate" checked>
+          <span>Validar al cargar (solo agrega los reproducibles)</span>
+        </label>
+        <button id="cancelVal" class="btn-ghost hidden">Cancelar validación</button>
+
+        <div class="status" id="status"></div>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="text" placeholder="Buscar canal…" autocomplete="off">
+        <select id="groupSel"><option value="">Todos los grupos</option></select>
+        <div class="filters-row">
+          <span class="list-meta" id="listMeta"></span>
+          <button id="checkBtn" class="btn-ghost">Comprobar</button>
+        </div>
+      </div>
+
+      <ul class="channels" id="channels"></ul>
+    </aside>
+
+    <!-- Reproductor -->
+    <section class="stage">
+      <div class="screen" id="screen">
+        <video id="video" controls playsinline></video>
+        <div class="screen-idle" id="idle">
+          <div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
+          <p>Selecciona un canal para iniciar la transmisión</p>
+        </div>
+      </div>
+      <div class="nowbar">
+        <div class="now-logo" id="nowLogo"></div>
+        <div class="now-info">
+          <div class="now-name" id="nowName">Sin señal</div>
+          <div class="now-sub" id="nowSub">—</div>
+        </div>
+        <div class="now-tech" id="nowTech"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

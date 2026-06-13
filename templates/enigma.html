@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma TV - IPTV Portal</title>
+    <link rel="stylesheet" href="/static/enigma/styles.css">
+    <link rel="icon" type="image/svg+xml" href="/static/enigma/logo.svg">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="/static/enigma/logo.svg" alt="Enigma TV" class="logo">
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-view="home">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Inicio</span>
+                </button>
+                <button class="nav-btn" data-view="playlists">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Listas</span>
+                </button>
+                <button class="nav-btn" data-view="favorites">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span>Favoritos</span>
+                </button>
+                <button class="nav-btn" data-view="search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Buscar</span>
+                </button>
+            </nav>
+
+            <div class="playlist-selector">
+                <h3>Lista Activa</h3>
+                <select id="active-playlist" class="playlist-dropdown">
+                    <option value="">Seleccionar lista...</option>
+                </select>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="version">v1.0.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menu-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h1 class="page-title" id="page-title">Enigma TV</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar" id="search-container">
+                        <input type="text" id="search-input" placeholder="Buscar canales..." class="search-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <button class="icon-btn" id="settings-btn" title="Configuración">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Views -->
+            <div class="views-container">
+                <!-- Home View -->
+                <section class="view active" id="home-view">
+                    <div class="welcome-section">
+                        <h2>Bienvenido a Enigma TV</h2>
+                        <p>Selecciona una lista de reproducción para comenzar</p>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button class="action-card" id="add-playlist-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                            <span>Agregar Lista</span>
+                        </button>
+                        <button class="action-card" id="load-default-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Cargar Lista Local</span>
+                        </button>
+                    </div>
+
+                    <div class="recent-channels">
+                        <h3>Canales Disponibles</h3>
+                        <div class="channels-grid" id="home-channels">
+                            <div class="no-channels">
+                                <p>No hay canales cargados</p>
+                                <p>Selecciona o agrega una lista de reproducción</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Playlists View -->
+                <section class="view" id="playlists-view">
+                    <div class="view-header">
+                        <h2>Listas de Reproducción</h2>
+                        <button class="primary-btn" id="add-playlist-modal-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Agregar Lista
+                        </button>
+                    </div>
+
+                    <div class="playlists-grid" id="playlists-container">
+                        <div class="playlist-card local">
+                            <div class="playlist-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Lista Local</h4>
+                                <p>iptv_list.m3u8</p>
+                                <span class="playlist-status active">Activa</span>
+                            </div>
+                            <button class="icon-btn load-btn" data-url="/static/iptv_list.m3u8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="playlist-card">
+                            <div class="playlist-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Deportes Activos</h4>
+                                <p>deportes_activos_clean.m3u8</p>
+                                <span class="channel-count">12 canales</span>
+                            </div>
+                            <button class="icon-btn load-btn" data-url="/static/deportes_activos_clean.m3u8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="playlist-card">
+                            <div class="playlist-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Mundial 2026</h4>
+                                <p>mundial2026.m3u8</p>
+                                <span class="channel-count">17 canales</span>
+                            </div>
+                            <button class="icon-btn load-btn" data-url="/static/mundial2026.m3u8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="playlist-card">
+                            <div class="playlist-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Chile Activos</h4>
+                                <p>chile_activos.m3u8</p>
+                                <span class="channel-count">17 canales</span>
+                            </div>
+                            <button class="icon-btn load-btn" data-url="/static/chile_activos.m3u8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="playlist-card">
+                            <div class="playlist-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Deportes Gratuitos</h4>
+                                <p>deportes_gratuitos.m3u8</p>
+                                <span class="channel-count">16 canales</span>
+                            </div>
+                            <button class="icon-btn load-btn" data-url="/static/deportes_gratuitos.m3u8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="playlist-card">
+                            <div class="playlist-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Fox Sports TS</h4>
+                                <p>fox_sports_ts.m3u8</p>
+                                <span class="channel-count">3 canales</span>
+                            </div>
+                            <button class="icon-btn load-btn" data-url="/static/fox_sports_ts.m3u8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="playlist-card">
+                            <div class="playlist-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Favoritos</h4>
+                                <p>favoritos.m3u8</p>
+                                <span class="channel-count">0 canales</span>
+                            </div>
+                            <button class="icon-btn load-btn" data-url="/static/favoritos.m3u8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Favorites View -->
+                <section class="view" id="favorites-view">
+                    <div class="view-header">
+                        <h2>Mis Favoritos</h2>
+                    </div>
+                    <div class="channels-grid" id="favorites-channels">
+                        <div class="no-channels">
+                            <p>No hay canales en favoritos</p>
+                            <p>Agrega canales haciendo clic en el ícono de corazón</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Search View -->
+                <section class="view" id="search-view">
+                    <div class="search-container">
+                        <input type="text" id="global-search" placeholder="Buscar en todas las listas..." class="global-search-input">
+                    </div>
+                    <div class="channels-grid" id="search-results">
+                        <div class="no-channels">
+                            <p>Ingresa un término de búsqueda</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Player Sidebar -->
+        <aside class="player-sidebar" id="player-sidebar">
+            <div class="player-header">
+                <h3>Reproductor</h3>
+                <button class="icon-btn close-player" id="close-player">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="video-container">
+                <video id="video-player" controls>
+                    <source src="" type="application/x-mpegURL">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+
+            <div class="player-info">
+                <h4 id="current-channel-name">Selecciona un canal</h4>
+                <p id="current-channel-url" class="channel-url"></p>
+            </div>
+
+            <div class="player-controls">
+                <button class="control-btn" id="play-btn" title="Reproducir">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                </button>
+                <button class="control-btn" id="pause-btn" title="Pausar" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="6" y="4" width="4" height="16"></rect>
+                        <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                </button>
+                <button class="control-btn" id="stop-btn" title="Detener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="6" y="6" width="12" height="12"></rect>
+                    </svg>
+                </button>
+                <button class="control-btn" id="fullscreen-btn" title="Pantalla Completa">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <polyline points="9 21 3 21 3 15"></polyline>
+                        <line x1="21" y1="3" x2="14" y2="10"></line>
+                        <line x1="3" y1="21" x2="10" y2="14"></line>
+                    </svg>
+                </button>
+                <button class="control-btn" id="fav-btn" title="Agregar a Favoritos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="now-playing">
+                <h5>En Cola</h5>
+                <div class="queue-list" id="queue-list">
+                    <p class="empty-queue">No hay canales en la cola</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Add Playlist Modal -->
+    <div class="modal" id="add-playlist-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Agregar Lista de Reproducción</h3>
+                <button class="icon-btn close-modal" id="close-modal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="playlist-url">URL de la Lista (M3U/M3U8)</label>
+                    <input type="url" id="playlist-url" placeholder="https://ejemplo.com/lista.m3u8">
+                </div>
+                <div class="form-group">
+                    <label>o Subir Archivo</label>
+                    <div class="file-upload" id="file-upload">
+                        <input type="file" id="playlist-file" accept=".m3u,.m3u8" hidden>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p>Arrastra un archivo aquí o haz clic para seleccionar</p>
+                        <span class="file-name" id="file-name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="playlist-name">Nombre (opcional)</label>
+                    <input type="text" id="playlist-name" placeholder="Mi Lista IPTV">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-btn" id="cancel-modal">Cancelar</button>
+                <button class="primary-btn" id="save-playlist">Guardar Lista</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <img src="/static/enigma/logo.svg" alt="Enigma TV" class="loading-logo">
+            <p>Cargando...</p>
+        </div>
+    </div>
+
+    <script src="/static/enigma/app.js"></script>
+</body>
+</html>

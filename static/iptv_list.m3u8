@@ -1,0 +1,55 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="ESPNDeportes" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/ESPN_Deportes.svg/960px-ESPN_Deportes.svg.png" group-title="Deportes",ESPN8 The Ocho (1080p)
+https://d3b6q2ou5kp8ke.cloudfront.net/ESPNTheOcho.m3u8
+#EXTINF:-1 tvg-id="FoxSports" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/FOX_Sports_logo.svg/960px-FOX_Sports_logo.svg.png" group-title="Deportes",FOX Sports (720p)
+https://jmp2.uk/plu-5a74b8e1e22a61737979c6bf.m3u8
+#EXTINF:-1 tvg-id="FoxSports1" tvg-logo="https://i.imgur.com/O9BapV9.png" group-title="Deportes",Fox Sports 1 (1280p)
+https://cors-proxy.cooks.fyi/http://190.11.225.124:5000/live/fs1_hd/playlist.m3u8
+#EXTINF:-1 tvg-id="DSportsUruguay" tvg-logo="https://i.imgur.com/2PoEm1x.png" group-title="Deportes",DSports Uruguay
+https://cors-proxy.cooks.fyi/http://147.135.114.221:8001/play/a00m/index.m3u8
+#EXTINF:-1 tvg-id="TyCSports" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/TyC_Sports_logo.svg/960px-TyC_Sports_logo.svg.png" group-title="Deportes",TyC Sports (1080p)
+https://amg26268-amg26268c14-freelivesports-emea-10267.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg26268-sportsstudio-tycsports-freelivesportsemea/playlist.m3u8
+#EXTINF:-1 tvg-id="TyCSportsUSA" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/TyC_Sports_logo.svg/960px-TyC_Sports_logo.svg.png" group-title="Deportes",TyC Sports USA
+http://45.170.130.224:8000/play/a020/index.m3u8
+#EXTINF:-1 tvg-id="TUDN" tvg-logo="https://i.imgur.com/oT5CAvd.png" group-title="Deportes",TUDN (1080p)
+https://streaming.alwaysdata.net/tudn.php
+#EXTINF:-1 tvg-id="beINSPORTSXTRA" tvg-logo="https://i.ibb.co/HT49GPmB/XTRA-2.png" group-title="Deportes",beIN SPORTS XTRA (1080p)
+https://bein-xtra-bein.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="beINSPORTSXTRAes" tvg-logo="https://i.imgur.com/V562tpO.png" group-title="Deportes",beIN Sports XTRA en Español (1080p)
+https://dc1644a9jazgj.cloudfront.net/beIN_Sports_Xtra_Espanol.m3u8
+#EXTINF:-1 tvg-id="DAZNCombat" tvg-logo="https://i.postimg.cc/VsW3Jsrz/logo-DAZN-Combat.png" group-title="Deportes",DAZN Combat (1080p)
+https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8
+#EXTINF:-1 tvg-id="DDSports" tvg-logo="https://dtil.tmsimg.com/assets/s158255_ld_h15_aa.png" group-title="Deportes",DD Sports SD (1080p)
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
+#EXTINF:-1 tvg-id="StarSports1" tvg-logo="https://i.imgur.com/E5jjKHI.png" group-title="Deportes",Star Sports 1 HD (1080p)
+http://103.253.18.58:8000/play/a00m
+#EXTINF:-1 tvg-id="NasaTV" tvg-logo="" group-title="Ciencia",NASA TV
+https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8
+#EXTINF:-1 tvg-id="DWEnglish" tvg-logo="" group-title="Noticias",DW News (English)
+https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8
+#EXTINF:-1 tvg-id="DWEspanol" tvg-logo="" group-title="Noticias",DW Noticias (Español)
+https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8
+#EXTINF:-1 tvg-id="CGTN" tvg-logo="" group-title="Noticias",CGTN News (English)
+https://news.cgtn.com/resource/live/english/cgtn-news.m3u8
+#EXTINF:-1 tvg-id="CGTNEspanol" tvg-logo="" group-title="Noticias",CGTN (Español)
+https://news.cgtn.com/resource/live/espanol/cgtn-e.m3u8
+#EXTINF:-1 tvg-id="CGTNFrancais" tvg-logo="" group-title="Noticias",CGTN (Français)
+https://news.cgtn.com/resource/live/french/cgtn-f.m3u8
+#EXTINF:-1 tvg-id="Bloomberg" tvg-logo="" group-title="Finanzas",Bloomberg TV
+https://www.bloomberg.com/media-manifest/streams/us.m3u8
+#EXTINF:-1 tvg-id="TV5Monde" tvg-logo="" group-title="Entretenimiento",TV5Monde Info
+https://ott.tv5monde.com/Content/HLS/Live/channel(info)/index.m3u8
+#EXTINF:-1 tvg-id="ArirangTV" tvg-logo="" group-title="Internacional",Arirang TV (Korea)
+https://amdlive-ch01-ctnd-com.akamaized.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="CHV 1080p" group-title="CHV Directo",CHV 1080p (Full HD)
+https://jireh-7-hls-video-cl-movistar.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_4000.m3u8?ndvc=0&dpssid=ef80937e2f369f621e3f3be8062d53bb&sid=ba5t1l1xb29813384566a2ca68d802df
+#EXTINF:-1 tvg-name="CHV 720p" group-title="CHV Directo",CHV 720p (HD)
+https://jireh-7-hls-video-cl-movistar.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_2500.m3u8?ndvc=0&dpssid=ef80937e2f369f621e3f3be8062d53bb&sid=ba5t1l1xb29813384566a2ca68d802df
+#EXTINF:-1 tvg-name="CHV 480p" group-title="CHV Directo",CHV 480p (SD)
+https://jireh-7-hls-video-cl-movistar.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_1500.m3u8?ndvc=0&dpssid=ef80937e2f369f621e3f3be8062d53bb&sid=ba5t1l1xb29813384566a2ca68d802df
+#EXTINF:-1 tvg-name="CHV 360p" group-title="CHV Directo",CHV 360p (Baja)
+https://jireh-7-hls-video-cl-movistar.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_1000.m3u8?ndvc=0&dpssid=ef80937e2f369f621e3f3be8062d53bb&sid=ba5t1l1xb29813384566a2ca68d802df
+#EXTINF:-1 tvg-name="CHV 240p" group-title="CHV Directo",CHV 240p (Muy Baja)
+https://jireh-7-hls-video-cl-movistar.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_500.m3u8?ndvc=0&dpssid=ef80937e2f369f621e3f3be8062d53bb&sid=ba5t1l1xb29813384566a2ca68d802df
+#EXTINF:-1 tvg-name="CHV 144p" group-title="CHV Directo",CHV 144p (Extrema)
+https://jireh-7-hls-video-cl-movistar.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_250.m3u8?ndvc=0&dpssid=ef80937e2f369f621e3f3be8062d53bb&sid=ba5t1l1xb29813384566a2ca68d802df
