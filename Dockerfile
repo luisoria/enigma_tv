@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 8088
 
-CMD ["python", "app.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:8088", "-w", "1", "--threads", "4", "--timeout", "120", "app:app"]
