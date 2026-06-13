@@ -11,6 +11,18 @@
     <div class="app">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
+            {% if user %}
+            <div class="user-bar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);background:rgba(99,102,241,0.05);font-size:12px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="color:var(--text-secondary);">{{ user.name }}</span>
+                    <span style="padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
+                        {% if user.plan == 'premium' %}background:linear-gradient(135deg,#f59e0b,#f97316);color:#0a0a0f;
+                        {% elif user.plan == 'inicio' %}background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;
+                        {% else %}background:#1e293b;color:#94a3b8;{% endif %}">{{ user.plan }}</span>
+                </div>
+                <a href="/logout" style="color:var(--text-muted);text-decoration:none;font-size:11px;">Cerrar sesión</a>
+            </div>
+            {% endif %}
             <div class="sidebar-header">
                 <div class="brand">
                     <span class="brand-text">Enigma TV</span>

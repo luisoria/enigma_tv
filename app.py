@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 """
-Portal IPTV local — reproductor web de listas .m3u / .m3u8
+EnigmaTV — Portal IPTV Streaming
 
-- Carga listas por URL o subiendo archivo.
-- Parsea canales (#EXTINF: nombre, tvg-logo, group-title, tvg-id...).
+- Landing page de marketing con planes de suscripción.
+- Sistema de login/registro con SQLite.
+- Reproductor web de listas .m3u / .m3u8.
 - Proxy interno que resuelve CORS y permite forzar User-Agent / Referer,
   reescribiendo las playlists HLS para que los segmentos pasen por el proxy.
-
-La lista la aporta el usuario. La app es solo el reproductor.
 """
 
 import io
+import os
 import re
+import sqlite3
 import time
+from functools import wraps
 from urllib.parse import quote, unquote, urljoin, urlparse
 
 import requests
@@ -20,12 +22,65 @@ from flask import (
     Flask,
     Response,
     jsonify,
+    redirect,
     render_template,
     request,
+    session,
     stream_with_context,
+    url_for,
 )
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "enigmatv-secret-key-change-in-prod-2026")
+
+# ---------------------------------------------------------------------------
+# Database
+# ---------------------------------------------------------------------------
+DB_PATH = os.path.join(os.path.dirname(__file__), "users.db")
+
+
+def get_db():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def init_db():
+    conn = get_db()
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            plan TEXT DEFAULT 'free',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+
+init_db()
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if "user_id" not in session:
+            return redirect(url_for("login_page"))
+        return f(*args, **kwargs)
+    return decorated
+
+
+def get_current_user():
+    if "user_id" not in session:
+        return None
+    conn = get_db()
+    user = conn.execute("SELECT * FROM users WHERE id = ?", (session["user_id"],)).fetchone()
+    conn.close()
+    return user
 
 DEFAULT_UA = (
     "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 "
@@ -156,11 +211,96 @@ def parse_m3u(text, name_hint=""):
 
 
 # ---------------------------------------------------------------------------
-# Rutas
+# Rutas — Páginas principales
 # ---------------------------------------------------------------------------
 @app.route("/")
-def index():
-    return render_template("landing.html")
+def home():
+    user = get_current_user()
+    return render_template("home.html", user=user)
+
+
+@app.route("/login", methods=["GET"])
+def login_page():
+    if "user_id" in session:
+        return redirect(url_for("player"))
+    error = request.args.get("error", "")
+    success = request.args.get("success", "")
+    return render_template("login.html", error=error, success=success)
+
+
+@app.route("/register", methods=["GET"])
+def register_page():
+    if "user_id" in session:
+        return redirect(url_for("player"))
+    error = request.args.get("error", "")
+    return render_template("register.html", error=error)
+
+
+@app.route("/api/auth/register", methods=["POST"])
+def api_register():
+    name = (request.form.get("name") or "").strip()
+    email = (request.form.get("email") or "").strip().lower()
+    password = request.form.get("password") or ""
+    confirm = request.form.get("confirm") or ""
+    plan = request.form.get("plan") or "free"
+
+    if not name or not email or not password:
+        return redirect(url_for("register_page", error="Todos los campos son obligatorios."))
+    if len(password) < 4:
+        return redirect(url_for("register_page", error="La contraseña debe tener al menos 4 caracteres."))
+    if password != confirm:
+        return redirect(url_for("register_page", error="Las contraseñas no coinciden."))
+    if plan not in ("free", "inicio", "premium"):
+        plan = "free"
+
+    conn = get_db()
+    existing = conn.execute("SELECT id FROM users WHERE email = ?", (email,)).fetchone()
+    if existing:
+        conn.close()
+        return redirect(url_for("register_page", error="Ya existe una cuenta con ese email."))
+
+    hashed = generate_password_hash(password)
+    conn.execute(
+        "INSERT INTO users (name, email, password, plan) VALUES (?, ?, ?, ?)",
+        (name, email, hashed, plan),
+    )
+    conn.commit()
+    conn.close()
+    return redirect(url_for("login_page", success="Cuenta creada. Inicia sesión."))
+
+
+@app.route("/api/auth/login", methods=["POST"])
+def api_login():
+    email = (request.form.get("email") or "").strip().lower()
+    password = request.form.get("password") or ""
+
+    if not email or not password:
+        return redirect(url_for("login_page", error="Ingresa email y contraseña."))
+
+    conn = get_db()
+    user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+    conn.close()
+
+    if not user or not check_password_hash(user["password"], password):
+        return redirect(url_for("login_page", error="Email o contraseña incorrectos."))
+
+    session["user_id"] = user["id"]
+    session["user_name"] = user["name"]
+    session["user_plan"] = user["plan"]
+    return redirect(url_for("player"))
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
+
+
+@app.route("/player")
+@login_required
+def player():
+    user = get_current_user()
+    return render_template("landing.html", user=user)
 
 
 @app.route("/legacy")

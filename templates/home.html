@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnigmaTV — Tu Canal Streaming de Venezuela Para El Mundo</title>
+    <meta name="description" content="EnigmaTV: Streaming en vivo con los mejores canales deportivos, noticias y entretenimiento. Planes desde $0 CLP.">
+    <link rel="icon" type="image/svg+xml" href="/static/enigma/logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/enigma/home.css">
+</head>
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="/" class="nav-brand">
+                <img src="/static/enigma/logo.svg" alt="EnigmaTV" class="nav-logo">
+                <span class="nav-brand-text">Enigma<span class="tv">TV</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Características</a>
+                <a href="#planes" class="nav-link">Planes</a>
+            </div>
+            <div class="nav-actions">
+                {% if user %}
+                <a href="/player" class="btn btn-primary btn-sm">Ir al Player</a>
+                <a href="/logout" class="btn btn-ghost btn-sm">Cerrar sesión</a>
+                {% else %}
+                <a href="/login" class="btn btn-ghost btn-sm">Iniciar sesión</a>
+                <a href="/register" class="btn btn-primary btn-sm">Registrarse</a>
+                {% endif %}
+            </div>
+            <button class="nav-mobile-toggle" id="mobileToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="hero-grid"></div>
+            <div class="hero-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                EN VIVO AHORA
+            </div>
+            <h1 class="hero-title">
+                Tu Canal de<br>
+                <span class="gradient-text">Streaming</span> Favorito
+            </h1>
+            <p class="hero-subtitle">
+                Los mejores canales deportivos, noticias y entretenimiento en vivo.
+                Desde Venezuela para el mundo. Sin contratos, sin complicaciones.
+            </p>
+            <div class="hero-actions">
+                <a href="/register" class="btn btn-primary btn-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"></polygon></svg>
+                    Comenzar gratis
+                </a>
+                <a href="#planes" class="btn btn-outline btn-lg">Ver planes</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">21+</span>
+                    <span class="stat-label">Canales en vivo</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Disponible</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">HD</span>
+                    <span class="stat-label">Calidad</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="tv-mockup">
+                <div class="tv-screen">
+                    <div class="tv-content">
+                        <img src="/static/enigma/logo.svg" alt="EnigmaTV" class="tv-logo-anim">
+                        <div class="tv-bars">
+                            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="tv-stand"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features" id="features">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-tag">¿Por qué EnigmaTV?</span>
+                <h2 class="section-title">Todo lo que necesitas para<br><span class="gradient-text">disfrutar tu contenido</span></h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3>TV en vivo</h3>
+                    <p>Canales de deportes, noticias y entretenimiento transmitiendo 24/7 en tiempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3>Multi-dispositivo</h3>
+                    <p>Disfruta desde tu PC, tablet, smartphone o Smart TV. Accede desde cualquier lugar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Sin contratos</h3>
+                    <p>Cancela cuando quieras. Sin permanencias, sin letras pequeñas, sin sorpresas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="10,8 16,12 10,16"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Deportes premium</h3>
+                    <p>FOX Sports, ESPN, TyC Sports, beIN Sports, DAZN y mucho más en tu pantalla.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3>Calidad HD y 4K</h3>
+                    <p>Imagen nítida y sonido envolvente. Streaming adaptativo para tu conexión.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                    </div>
+                    <h3>Ultra rápido</h3>
+                    <p>Proxy inteligente que optimiza la señal. Sin buffering, sin retrasos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PLANES ===== -->
+    <section class="pricing" id="planes">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-tag">Planes</span>
+                <h2 class="section-title">Elige tu plan<br><span class="gradient-text">perfecto</span></h2>
+                <p class="section-desc">Comienza gratis y mejora cuando lo necesites.</p>
+            </div>
+            <div class="pricing-grid">
+                <!-- FREE -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <span class="plan-name">Free</span>
+                        <div class="plan-price">
+                            <span class="price-amount">$0</span>
+                            <span class="price-period">/ siempre</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Canales abiertos</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Noticias en vivo</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> 1 dispositivo</li>
+                        <li class="excluded"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Canales deportivos</li>
+                        <li class="excluded"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Calidad HD</li>
+                        <li class="excluded"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Sin publicidad</li>
+                    </ul>
+                    <a href="/register?plan=free" class="btn btn-outline btn-block">Comenzar gratis</a>
+                </div>
+
+                <!-- INICIO -->
+                <div class="plan-card plan-popular">
+                    <div class="plan-badge">Más popular</div>
+                    <div class="plan-header">
+                        <span class="plan-name">Inicio</span>
+                        <div class="plan-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">990</span>
+                            <span class="price-period">CLP / mes</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Todo lo de Free</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Canales deportivos</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Calidad HD</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> 2 dispositivos</li>
+                        <li class="excluded"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Calidad 4K</li>
+                        <li class="excluded"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Sin publicidad</li>
+                    </ul>
+                    <a href="/register?plan=inicio" class="btn btn-primary btn-block">Suscribirse</a>
+                </div>
+
+                <!-- PREMIUM -->
+                <div class="plan-card plan-premium">
+                    <div class="plan-badge premium-badge">✦ Premium</div>
+                    <div class="plan-header">
+                        <span class="plan-name">Premium</span>
+                        <div class="plan-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">4.990</span>
+                            <span class="price-period">CLP / mes</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Todo lo de Inicio</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Calidad 4K Ultra HD</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> 5 dispositivos</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Sin publicidad</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Soporte prioritario</li>
+                        <li class="included"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"></polyline></svg> Contenido exclusivo</li>
+                    </ul>
+                    <a href="/register?plan=premium" class="btn btn-premium btn-block">Ir Premium</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="/static/enigma/logo.svg" alt="EnigmaTV" class="footer-logo">
+                <span class="footer-brand-text">Enigma<span class="tv">TV</span></span>
+                <p class="footer-slogan">Tu Canal Streaming de Venezuela Para El Mundo</p>
+            </div>
+            <div class="footer-links">
+                <a href="#features">Características</a>
+                <a href="#planes">Planes</a>
+                <a href="/login">Iniciar sesión</a>
+                <a href="/register">Registrarse</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EnigmaTV.cl — Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const toggle = document.getElementById('mobileToggle');
+        const navLinks = document.querySelector('.nav-links');
+        const navActions = document.querySelector('.nav-actions');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            navLinks.classList.toggle('mobile-open');
+            navActions.classList.toggle('mobile-open');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Close mobile menu
+                toggle.classList.remove('active');
+                navLinks.classList.remove('mobile-open');
+                navActions.classList.remove('mobile-open');
+            });
+        });
+
+        // Fade in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.feature-card, .plan-card, .section-header').forEach(el => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
