@@ -1,1 +1,15 @@
 #EXTM3U
+#EXTINF:-1 tvg-name="CHV Master" group-title="CHV Directo",CHV (Calidad Automática)
+https://jireh-21-hls-video-cl-isp.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8?ndvc=0
+#EXTINF:-1 tvg-name="CHV 1080p" group-title="CHV Directo",CHV 1080p (Full HD)
+https://jireh-21-hls-video-cl-isp.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_4000.m3u8?ndvc=0
+#EXTINF:-1 tvg-name="CHV 720p" group-title="CHV Directo",CHV 720p (HD)
+https://jireh-21-hls-video-cl-isp.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_2500.m3u8?ndvc=0
+#EXTINF:-1 tvg-name="CHV 480p" group-title="CHV Directo",CHV 480p (SD)
+https://jireh-21-hls-video-cl-isp.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_1500.m3u8?ndvc=0
+#EXTINF:-1 tvg-name="CHV 360p" group-title="CHV Directo",CHV 360p (Baja)
+https://jireh-21-hls-video-cl-isp.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_1000.m3u8?ndvc=0
+#EXTINF:-1 tvg-name="CHV 240p" group-title="CHV Directo",CHV 240p (Muy Baja)
+https://jireh-21-hls-video-cl-isp.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_500.m3u8?ndvc=0
+#EXTINF:-1 tvg-name="CHV 144p" group-title="CHV Directo",CHV 144p (Extrema)
+https://jireh-21-hls-video-cl-isp.dps.live/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist_250.m3u8?ndvc=0
