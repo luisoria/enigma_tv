@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let channels = [];
     let currentChannel = null;
     let groups = new Set();
+    let hls = null;
 
     // Load channels from backend
     loadChannels();
@@ -149,9 +150,31 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch(e) {
             playUrl = `/stream?url=${encodeURIComponent(url)}`;
         }
-        player.src = playUrl;
-        player.load();
-        player.play().catch(err => console.log('Autoplay blocked:', err));
+
+        const isHls = /\.m3u8(\?|$)/i.test(url) || /mpegurl/i.test(url);
+
+        if (hls) {
+            hls.destroy();
+            hls = null;
+        }
+
+        if (isHls && window.Hls && Hls.isSupported()) {
+            hls = new Hls({ lowLatencyMode: true, enableWorker: true });
+            hls.loadSource(playUrl);
+            hls.attachMedia(player);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                player.play().catch(err => console.log('Autoplay blocked:', err));
+            });
+            hls.on(Hls.Events.ERROR, (_, d) => {
+                if (d.fatal) {
+                    console.error('Fatal HLS error:', d.details);
+                }
+            });
+        } else {
+            player.src = playUrl;
+            player.load();
+            player.play().catch(err => console.log('Autoplay blocked:', err));
+        }
     }
 
     function updateChannelCount() {

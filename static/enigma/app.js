@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         queue: [],
         activePlaylistUrl: null
     };
+    let hlsInstance = null;
 
     // DOM Elements
     const elements = {
@@ -419,13 +420,35 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch(e) {
             playUrl = `/stream?url=${encodeURIComponent(url)}`;
         }
-        elements.videoPlayer.src = playUrl;
-        elements.videoPlayer.load();
-        
-        // Play
-        elements.videoPlayer.play().catch(error => {
-            console.error('Error playing video:', error);
-        });
+
+        const isHls = /\.m3u8(\?|$)/i.test(url) || /mpegurl/i.test(url);
+
+        if (hlsInstance) {
+            hlsInstance.destroy();
+            hlsInstance = null;
+        }
+
+        if (isHls && window.Hls && Hls.isSupported()) {
+            hlsInstance = new Hls({ lowLatencyMode: true, enableWorker: true });
+            hlsInstance.loadSource(playUrl);
+            hlsInstance.attachMedia(elements.videoPlayer);
+            hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+                elements.videoPlayer.play().catch(error => {
+                    console.error('Error playing video:', error);
+                });
+            });
+            hlsInstance.on(Hls.Events.ERROR, (_, d) => {
+                if (d.fatal) {
+                    console.error('Fatal HLS error:', d.details);
+                }
+            });
+        } else {
+            elements.videoPlayer.src = playUrl;
+            elements.videoPlayer.load();
+            elements.videoPlayer.play().catch(error => {
+                console.error('Error playing video:', error);
+            });
+        }
 
         // Update favorite button
         updateFavButton();
@@ -447,6 +470,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function stopPlayer() {
+        if (hlsInstance) {
+            hlsInstance.destroy();
+            hlsInstance = null;
+        }
         elements.videoPlayer.pause();
         elements.videoPlayer.currentTime = 0;
         elements.videoPlayer.src = '';
