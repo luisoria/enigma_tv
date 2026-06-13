@@ -19,18 +19,20 @@
                 <img src="/static/enigma/logo.svg" alt="EnigmaTV" class="nav-logo">
                 <span class="nav-brand-text">Enigma<span class="tv">TV</span></span>
             </a>
-            <div class="nav-links">
-                <a href="#features" class="nav-link">Características</a>
-                <a href="#planes" class="nav-link">Planes</a>
-            </div>
-            <div class="nav-actions">
-                {% if user %}
-                <a href="/player" class="btn btn-primary btn-sm">Ir al Player</a>
-                <a href="/logout" class="btn btn-ghost btn-sm">Cerrar sesión</a>
-                {% else %}
-                <a href="/login" class="btn btn-ghost btn-sm">Iniciar sesión</a>
-                <a href="/register" class="btn btn-primary btn-sm">Registrarse</a>
-                {% endif %}
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-links">
+                    <a href="#features" class="nav-link">Características</a>
+                    <a href="#planes" class="nav-link">Planes</a>
+                </div>
+                <div class="nav-actions">
+                    {% if user %}
+                    <a href="/player" class="btn btn-primary btn-sm">Ir al Player</a>
+                    <a href="/logout" class="btn btn-ghost btn-sm">Cerrar sesión</a>
+                    {% else %}
+                    <a href="/login" class="btn btn-ghost btn-sm">Iniciar sesión</a>
+                    <a href="/register" class="btn btn-primary btn-sm">Registrarse</a>
+                    {% endif %}
+                </div>
             </div>
             <button class="nav-mobile-toggle" id="mobileToggle">
                 <span></span><span></span><span></span>
@@ -278,12 +280,10 @@
 
         // Mobile menu
         const toggle = document.getElementById('mobileToggle');
-        const navLinks = document.querySelector('.nav-links');
-        const navActions = document.querySelector('.nav-actions');
+        const navMenu = document.getElementById('navMenu');
         toggle.addEventListener('click', () => {
             toggle.classList.toggle('active');
-            navLinks.classList.toggle('mobile-open');
-            navActions.classList.toggle('mobile-open');
+            navMenu.classList.toggle('mobile-open');
         });
 
         // Smooth scroll
@@ -294,8 +294,7 @@
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Close mobile menu
                 toggle.classList.remove('active');
-                navLinks.classList.remove('mobile-open');
-                navActions.classList.remove('mobile-open');
+                navMenu.classList.remove('mobile-open');
             });
         });
 

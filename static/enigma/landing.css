@@ -361,7 +361,7 @@ video::-webkit-media-controls {
     border: none;
     color: var(--text-primary);
     cursor: pointer;
-    padding: 8px;
+    padding: 11px;
     margin-right: 8px;
 }
 
@@ -376,7 +376,7 @@ video::-webkit-media-controls {
     border: none;
     color: var(--text-primary);
     cursor: pointer;
-    padding: 8px;
+    padding: 12px;
     margin-left: auto;
 }
 
@@ -386,11 +386,13 @@ video::-webkit-media-controls {
 }
 
 .sidebar-overlay {
-    display: none;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
     z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 /* ============================================
@@ -745,7 +747,8 @@ video::-webkit-media-controls {
     }
 
     .player-container {
-        height: 100%;
+        flex: 1;
+        height: auto;
     }
 
     .placeholder-logo {
@@ -757,7 +760,8 @@ video::-webkit-media-controls {
     }
 
     .sidebar-overlay.active {
-        display: block;
+        opacity: 1;
+        pointer-events: auto;
     }
 }
 
@@ -780,7 +784,7 @@ video::-webkit-media-controls {
         padding: 8px;
     }
 
-    .logo {
+    .logo-icon {
         height: 32px;
     }
 
@@ -818,7 +822,7 @@ video::-webkit-media-controls {
     }
 
     .channel-item {
-        padding: 6px 8px;
+        padding: 8px;
         gap: 8px;
     }
 
@@ -842,14 +846,32 @@ video::-webkit-media-controls {
 
     .main {
         height: 100vh;
+        position: relative;
     }
 
     .now-playing {
-        padding: 6px 12px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background: linear-gradient(to bottom, rgba(10, 10, 15, 0.85), rgba(10, 10, 15, 0));
+        border-bottom: none;
+        padding: 8px 12px;
+        pointer-events: none;
+    }
+
+    .now-playing * {
+        pointer-events: auto;
     }
 
     .now-playing-name {
-        font-size: 11px;
+        font-size: 12px;
+    }
+
+    .player-container {
+        height: 100vh;
+        width: 100%;
     }
 }
 
