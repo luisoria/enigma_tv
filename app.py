@@ -219,11 +219,6 @@ def api_playlist():
         return jsonify(error="La lista está vacía o no es un M3U válido."), 400
 
     channels, groups = parse_m3u(text, name_hint=src)
-    if not channels:
-        return jsonify(
-            error="No se detectaron streams en el archivo. "
-            "¿Seguro que es un .m3u/.m3u8 válido?"
-        ), 400
 
     return jsonify(source=src, count=len(channels), groups=groups, channels=channels)
 
