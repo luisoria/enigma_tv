@@ -137,19 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide placeholder
         placeholder.classList.add('hidden');
 
-        // Play through proxy or directly
-        let playUrl = url;
-        try {
-            const hostname = new URL(url).hostname;
-            if (!(hostname.endsWith('.dps.live') || 
-                  hostname.endsWith('.dpsgo.com') || 
-                  hostname.endsWith('.rudo.video') || 
-                  hostname.endsWith('.mdstrm.com'))) {
-                playUrl = `/stream?url=${encodeURIComponent(url)}`;
-            }
-        } catch(e) {
-            playUrl = `/stream?url=${encodeURIComponent(url)}`;
-        }
+        // Play through the backend proxy so geo-sensitive HLS CDNs see the server IP.
+        const playUrl = `/stream?url=${encodeURIComponent(url)}`;
 
         const isHls = /\.m3u8(\?|$)/i.test(url) || /mpegurl/i.test(url);
 
