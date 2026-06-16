@@ -336,6 +336,41 @@ video::-webkit-media-controls {
     font-size: 16px;
 }
 
+.playback-error {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    max-width: min(520px, calc(100% - 32px));
+    padding: 14px 18px;
+    background: rgba(10, 10, 15, 0.92);
+    border: 1px solid rgba(239, 68, 68, 0.55);
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-align: center;
+    z-index: 3;
+}
+
+.playback-error.hidden {
+    display: none;
+}
+
+.playback-error strong,
+.playback-error span {
+    display: block;
+}
+
+.playback-error strong {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.playback-error span {
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
 /* Scrollbar */
 .channel-list::-webkit-scrollbar {
     width: 6px;

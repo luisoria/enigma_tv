@@ -402,13 +402,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update player UI
         elements.currentChannelName.textContent = name;
         elements.currentChannelUrl.textContent = url;
+        elements.currentChannelName.classList.remove('error');
         
         // Show player sidebar
         elements.playerSidebar.classList.remove('hidden');
         elements.playerSidebar.classList.add('visible');
         
-        // Set video source through the backend proxy so geo-sensitive HLS CDNs see the server IP.
-        const playUrl = `/stream?url=${encodeURIComponent(url)}`;
+        // Set video source
+        let playUrl = url;
+        try {
+            const hostname = new URL(url).hostname;
+            if (!(hostname.endsWith('.dps.live') || 
+                  hostname.endsWith('.dpsgo.com') || 
+                  hostname.endsWith('.rudo.video') || 
+                  hostname.endsWith('.mdstrm.com'))) {
+                playUrl = `/stream?url=${encodeURIComponent(url)}`;
+            }
+        } catch(e) {
+            playUrl = `/stream?url=${encodeURIComponent(url)}`;
+        }
 
         const isHls = /\.m3u8(\?|$)/i.test(url) || /mpegurl/i.test(url);
 
@@ -429,6 +441,8 @@ document.addEventListener('DOMContentLoaded', () => {
             hlsInstance.on(Hls.Events.ERROR, (_, d) => {
                 if (d.fatal) {
                     console.error('Fatal HLS error:', d.details);
+                    elements.currentChannelName.textContent = 'No se pudo reproducir este canal';
+                    elements.currentChannelName.classList.add('error');
                 }
             });
         } else {
@@ -437,6 +451,10 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.videoPlayer.play().catch(error => {
                 console.error('Error playing video:', error);
             });
+            elements.videoPlayer.onerror = () => {
+                elements.currentChannelName.textContent = 'No se pudo reproducir este canal';
+                elements.currentChannelName.classList.add('error');
+            };
         }
 
         // Update favorite button

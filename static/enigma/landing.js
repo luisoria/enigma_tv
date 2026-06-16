@@ -13,6 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebarClose = document.getElementById('sidebar-close');
     const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const playbackError = document.createElement('div');
+    playbackError.className = 'playback-error hidden';
+    playbackError.innerHTML = `
+        <strong>No se pudo reproducir este canal</strong>
+        <span>La senal puede estar limitada por pais o bloqueada por la IP actual.</span>
+    `;
+    player.parentElement.appendChild(playbackError);
 
     let channels = [];
     let currentChannel = null;
@@ -123,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playChannel(url, name) {
         currentChannel = { url, name };
+        hidePlaybackError();
 
         // Update UI
         document.querySelectorAll('.channel-item').forEach(item => {
@@ -137,8 +145,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide placeholder
         placeholder.classList.add('hidden');
 
-        // Play through the backend proxy so geo-sensitive HLS CDNs see the server IP.
-        const playUrl = `/stream?url=${encodeURIComponent(url)}`;
+        // Play through proxy or directly
+        let playUrl = url;
+        try {
+            const hostname = new URL(url).hostname;
+            if (!(hostname.endsWith('.dps.live') || 
+                  hostname.endsWith('.dpsgo.com') || 
+                  hostname.endsWith('.rudo.video') || 
+                  hostname.endsWith('.mdstrm.com'))) {
+                playUrl = `/stream?url=${encodeURIComponent(url)}`;
+            }
+        } catch(e) {
+            playUrl = `/stream?url=${encodeURIComponent(url)}`;
+        }
 
         const isHls = /\.m3u8(\?|$)/i.test(url) || /mpegurl/i.test(url);
 
@@ -157,13 +176,24 @@ document.addEventListener('DOMContentLoaded', () => {
             hls.on(Hls.Events.ERROR, (_, d) => {
                 if (d.fatal) {
                     console.error('Fatal HLS error:', d.details);
+                    showPlaybackError();
                 }
             });
         } else {
             player.src = playUrl;
             player.load();
             player.play().catch(err => console.log('Autoplay blocked:', err));
+            player.onerror = showPlaybackError;
         }
+    }
+
+    function showPlaybackError() {
+        playbackError.classList.remove('hidden');
+    }
+
+    function hidePlaybackError() {
+        playbackError.classList.add('hidden');
+        player.onerror = null;
     }
 
     function updateChannelCount() {
